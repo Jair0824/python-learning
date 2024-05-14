@@ -375,50 +375,50 @@ for key in DC:
     #函数调用示例
     def put(a):
     
-    b = "{} is a wonderful subiect!".format(a)
+        b = "{} is a wonderful subiect!".format(a)
     
-    return b
+        return b
+    name = ["A", "B", "C"]
     
+    for i in name: 
+        print(put(i))
     ```
-
-name = ["A", "B", "C"]
-
-for i in name:
-    print(put(i))
-
-```
-+ 可选参数：在定义函数时如果有些参数存在默认值，则可在定义时直接将这些参数指定默认值，当函数被调用时如果没有传入对应的参数则直接使用默认值代替；由于函数调用时需按顺序输入参数，可选参数必须定义在非可选参数后面
-+ 可变数量参数：在函数定义时可通过在变量名前加``*``定义可变数量参数，调用时这些变量被当作元组传递，可变数量参数必须定义在参数列表最后
-+ 参数的位置传递与名称传递：函数调用时实参默认按照位置顺序传入函数，为位置传递；同时在调用函数时可以指定参数名称进行传递，为名称传递
-+ Python的函数返回值可以是各种形式，如列表、多个值等，同时函数也可以没有返回值
-
-```python
-#可选参数
-def dup(str,times=2):
-    print(str*times)
-dup("a") #输出aa
-dup("a",4) #输出aaaa
-
-#可变数量参数
-def fun(a,*b):
-    for i in b:
-        a += b
-    return a
-fun(1,2,3,4) #输出15
-
-#参数的位置传递
-a=fun(1,2,3,4)
-
-#参数名称传递
-a=fun(b=2,a=3)
-
-#多值返回
-def add2(x=0,y=0):
-  return [x+2,y+2] #返回列表
-
-def add3(x,y):
-  return x+3,y+3 #双重返回
-```
+  
+  + 可选参数：在定义函数时如果有些参数存在默认值，则可在定义时直接将这些参数指定默认值，当函数被调用时如果没有传入对应的参数则直接使用默认值代替；由于函数调用时需按顺序输入参数，可选参数必须定义在非可选参数后面
+  
+  + 可变数量参数：在函数定义时可通过在变量名前加``*``定义可变数量参数，调用时这些变量被当作元组传递，可变数量参数必须定义在参数列表最后
+  
+  + 参数的位置传递与名称传递：函数调用时实参默认按照位置顺序传入函数，为位置传递；同时在调用函数时可以指定参数名称进行传递，为名称传递
+  
+  + Python的函数返回值可以是各种形式，如列表、多个值等，同时函数也可以没有返回值
+  
+  ```python
+  #可选参数
+  def dup(str,times=2):
+      print(str*times)
+  dup("a") #输出aa
+  dup("a",4) #输出aaaa
+  
+  #可变数量参数
+  def fun(a,*b):
+      for i in b:
+          a += b
+      return a
+  fun(1,2,3,4) #输出15
+  
+  #参数的位置传递
+  a=fun(1,2,3,4)
+  
+  #参数名称传递
+  a=fun(b=2,a=3)
+  
+  #多值返回
+  def add2(x=0,y=0):
+    return [x+2,y+2] #返回列表
+  
+  def add3(x,y):
+    return x+3,y+3 #双重返回
+  ```
 
 ### 1.3.3 函数与变量
 
@@ -435,51 +435,49 @@ def add3(x,y):
     ```python
     n=1
     s=[]
+    def func_1(a,b): 
+        n=a+b 
+        return nfunc_1(1,2)
+    print(n) #输出1 函数仅处理局部变量
     
+    def func_2(a,b): 
+        global n #声明为全局变量 
+        n=a+b 
+        return nfunc_2(1,2)
+    print(n) #输出3
+    
+    def func_3(a) 
+        a="str"
+        s.append(a)
+    print(s) #输出str
     ```
 
-def func_1(a,b):
-    n=a+b
-    return n
-func_1(1,2)
-print(n) #输出1 函数仅处理局部变量
-
-def func_2(a,b):
-    global n #声明为全局变量
-    n=a+b
-    return n
-func_2(1,2)
-print(n) #输出3
-
-def func_3(a)
-    s.append(a)
-a="str"
-print(s) #输出str
-
-```
-
 ### 1.3.4  函数作为实参及返回值
+
 #### -函数作为实参
+
 + 在程序语言中函数也可以作为实参进行调用，用法与普通实参类似，以排序函数``sorted()``进行演示
+
 + 内置函数 ``sorted()`` 可以对一个可遍历对象 (iterable) 中的元素进行排序，排序的结果存储在一个新创建的列表中。关键字实参 ``key`` 指定一个函数，它从每个元素生成用于排序的比较值。关键字实参 ``reverse`` 的默认值为 False，若设为 True 则表示从大到小的次序排序。
-```python 
-n[1]: animals = ["elephant", "tiger", "rabbit", "goat", "dog","penguin"]
-In[2]: sorted(animals)
-Out[2]: ['dog', 'elephant', 'goat', 'penguin', 'rabbit', 'tiger']
-#len()函数作为实参做关键字
-In[3]: sorted(animals, key=len) 
-Out[3]: ['dog', 'goat', 'tiger', 'rabbit', 'penguin', 'elephant']
-In[4]: sorted(animals, key=len, reverse=True) 
-Out[4]: ['elephant', 'penguin', 'rabbit', 'tiger', 'goat', 'dog']
-In[5]: def m1(s): return ord(min(s)) 
-#自定义函数m1作为实参做关键字,按字符串中最小字符Unicode排序
-In[6]: sorted(animals, key=m1) 
-Out[6]: ['elephant', 'rabbit', 'goat', 'dog', 'tiger', 'penguin']
-In[7]: def m2(s): return ord(min(s)), len(s)
-#自定义函数作为实参做关键字，先按照最小编码值从小到大排序，若两个字符串具有相同的最小编码值，则按照长度从小到大排序
-In[8]: sorted(animals, key=m2) 
-Out[8]: ['goat', 'rabbit', 'elephant', 'dog', 'tiger', 'penguin']
-```
+  
+  ```python
+  n[1]: animals = ["elephant", "tiger", "rabbit", "goat", "dog","penguin"]
+  In[2]: sorted(animals)
+  Out[2]: ['dog', 'elephant', 'goat', 'penguin', 'rabbit', 'tiger']
+  #len()函数作为实参做关键字
+  In[3]: sorted(animals, key=len) 
+  Out[3]: ['dog', 'goat', 'tiger', 'rabbit', 'penguin', 'elephant']
+  In[4]: sorted(animals, key=len, reverse=True) 
+  Out[4]: ['elephant', 'penguin', 'rabbit', 'tiger', 'goat', 'dog']
+  In[5]: def m1(s): return ord(min(s)) 
+  #自定义函数m1作为实参做关键字,按字符串中最小字符Unicode排序
+  In[6]: sorted(animals, key=m1) 
+  Out[6]: ['elephant', 'rabbit', 'goat', 'dog', 'tiger', 'penguin']
+  In[7]: def m2(s): return ord(min(s)), len(s)
+  #自定义函数作为实参做关键字，先按照最小编码值从小到大排序，若两个字符串具有相同的最小编码值，则按照长度从小到大排序
+  In[8]: sorted(animals, key=m2) 
+  Out[8]: ['goat', 'rabbit', 'elephant', 'dog', 'tiger', 'penguin']
+  ```
 
 #### -函数作为返回值
 
@@ -489,39 +487,45 @@ Out[8]: ['goat', 'rabbit', 'elephant', 'dog', 'tiger', 'penguin']
   
   ```python
   def key_fun(n):
-    def m1(s): return ord(min(s))
-    def m2(s): return ord(min(s)), len(s)
+      def m1(s): return ord(min(s))
+      def m2(s): return ord(min(s)), len(s)
   
-    ms = [None, len, m1, m2]
-    return ms[n]
-  
+      ms = [None, len, m1, m2]
+      return ms[n]
+  animals = ["elephant", "tiger", "rabbit", "goat", "dog", "penguin"] 
+  for i in range(4): 
+      print(sorted(animals, key=key_fun(i))) 
+  """ 
+  输出： 
+  ['dog', 'elephant', 'goat', 'penguin', 'rabbit', 'tiger'] 
+  ['dog', 'goat', 'tiger', 'rabbit', 'penguin', 'elephant'] 
+  ['elephant', 'rabbit', 'goat', 'dog', 'tiger', 'penguin'] 
+  ['goat', 'rabbit', 'elephant', 'dog', 'tiger', 'penguin'] 
+  """
   ```
 
-animals = ["elephant", "tiger", "rabbit", "goat", "dog", "penguin"]
-for i in range(4):
-    print(sorted(animals, key=key_fun(i)))
-"""
-输出：
-['dog', 'elephant', 'goat', 'penguin', 'rabbit', 'tiger']
-['dog', 'goat', 'tiger', 'rabbit', 'penguin', 'elephant']
-['elephant', 'rabbit', 'goat', 'dog', 'tiger', 'penguin']
-['goat', 'rabbit', 'elephant', 'dog', 'tiger', 'penguin']
-"""
-
-```
 ### 1.3.5 代码复用与模块化设计
+
 #### -面向过程与面向对象
+
 + 现阶段的编程语言从代码层面采用函数和对象两种抽象方式，分别对应面向过程和面向对象两种编程思想
 + 面向过程是一种以过程描述为主的编程思想，要求列出所有解决问题所需的步骤并通过函数一一实现步骤，使用时依次建立并调用函数，函数通过将步骤或子功能封装实现代码复用并降低编程难度
 + 对象将程序代码组织为更高级别的类，对象包括表示对象属性的类和代表对象操作的方法，在程序设计中，对于对象``<a>``，获取其属性``<b>``采用``<a>.<b>``，调用其方法``<c>``采用``<a>.<c>()``，如对一个列表``ls``，使用``append()``方法``ls.append(1)``在列表末尾添加元素``1``；对象是一种高级别抽象，它包括一组静态值(属性)和一组函数(方法)，对象和函数都使用了一个抽象逻辑，但对象可以凝聚更多的代码，更适合代码量大，交互逻辑复杂的程序
+
 #### -代码复用及递归
+
 + 函数可以被内部代码调用，这种方法称为递归，递归需要满足的条件有：
-  + 原问题可以分解为一个或多个结构类似但规模更小的子问题
-  + 当子问题规模足够小时可以直接求解，称为递归终止条件
-  + 原问题的解可以由子问题的解合并而成
++ 原问题可以分解为一个或多个结构类似但规模更小的子问题
++ 当子问题规模足够小时可以直接求解，称为递归终止条件
++ 原问题的解可以由子问题的解合并而成
 + 递归解决问题的重要基础是基于问题提出递归公式，以阶乘为例，阶乘公式为
 
-$$\left. n!=\left\{\begin{array}{ll}1&\text{if} \quad n=1\\n*(n-1)!&\text{if} \quad n>1\end{array}\right.\right.$$
+$$
+\left. n!=\left\{\begin{array}{ll}1&\text{if} \quad n=1\\n*(n-1)!&\text{if} \quad n>1\end{array}\right.\right.
+$$
+
+$$
+
 ```python
 def func(n):
     if n==1:
@@ -556,135 +560,138 @@ def func(n):
   
   ```python
   #模块示例
-  """
-  Module for printing the monthly calendar for the year and
-  the month specified by the user.
+    """
+    Module for printing the monthly calendar for the year and
+    the month specified by the user.
+  
+      For example, given year 2022 and month 9, the module prints
+      the monthly calendar of September 2022.
+  
+      > > > run month_calendar.py --year 2022 --month 9
+  
+      2022  9
+      ---------------------------
+  
+      Sun Mon Tue Wed Thu Fri Sat
+                  1   2   3
+      4   5   6   7   8   9   10
+      11  12  13  14  15  16  17
+      18  19  20  21  22  23  24
+      25  26  27  28  29  30
+      """
+  
+  import sys, math
+  
+  def is_leap(year): 
+      #若year是闰年返回True，否则返回False
+      return (year % 4 == 0 and year % 100 != 0) or year % 400 == 0
+  
+  def test____is_leap():
+      d = {1900:False, 2000:True, 2020:True, 2022:False}
+      #用已知正确答案的数据测试is_leap函数,若计算结果不正确则报错
+      for y in d.keys():  
+          if is_leap(y) != d[y]:  
+              print("test failed: is_leap(%d) != %s" % (y, d[y]))
+  
+  def get_0101_in_week(year):
+      return (year + math.floor((year - 1) / 4) -
+              math.floor((year - 1) / 100) +
+              math.floor((year - 1) / 400)) % 7
+  
+  def test____get_0101_in_week():
+      d = {2008:2, 2014:3, 2021:5, 2022:6}
+      for y in d.keys():
+          if d[y] != get_0101_in_week(y):
+              print("test failed: get_0101_in_week(%d) != %s"
+                    % (y, d[y]))
+  
+  month_days = {1:31, 2:28, 3:31, 4:30, 5:31, 6:30,
+                7:31, 8:31, 9:30, 10:31, 11:30, 12:31}
+  def get_num_days_in_month(year, month):
+      n = month_days[month]
+      if month == 2 and is_leap(year):
+          return n + 1
+      return n
+  
+  def get_num_days_from_0101_to_m01(year, month):
+      n = 0
+      for i in range(1, month):
+          n += get_num_days_in_month(year, i)
+      return n
+  
+  def get_m01_in_week(year, month):
+      n1 = get_0101_in_week(year)
+      n2 = get_num_days_from_0101_to_m01(year, month)
+      n = (n1 + n2) % 7
+      return n
+  
+  def test____get_m01_in_week():
+      d = {(2022, 6):3, (2019, 10):2, (2016, 5):0, (2011, 7):5}
+      for y in d.keys():
+          if d[y] != get_m01_in_week(y[0], y[1]):
+              print("test failed: get_m01_in_week(%s) != %s"
+                    % (y, d[y]))
+  
+  def print_header(year, month):
+      print("%d  %d " % (year, month))
+      print("---------------------------")
+      print("Sun Mon Tue Wed Thu Fri Sat")
+  
+  def print_body(year, month):
+      n = get_m01_in_week(year, month)
+      print(n * 4 * ' ', end='')
+      for i in range(1, get_num_days_in_month(year, month) + 1):
+          print('%-04d' % i, end='')
+          if (i + n) % 7 == 0: print()
+  
+  def print_monthly_calendar(year, month):
+      print_header(year, month)
+      print_body(year, month)
+  
+  def test_all_functions():
+      #调用所有以“test____”为名称前缀的测试函数。
+      test____is_leap()
+      test____get_0101_in_week()
+      test____get_m01_in_week()
+  
+  if __name__ == '__main__':
+      #判断模块是否作为一个独立的程序运行
+      #sys.argv是一个记录了用户在命令行输入的所有参数的列表。列表的第一个元素是模块名称，列表的其余元素(若存在)是用户依次输入的所有参数  
+      if len(sys.argv) == 1:
+          print(__doc__)  #用户未输入参数，输出模块的文档
+      elif len(sys.argv) == 2 and sys.argv[1] == '-h':
+          print(__doc__)  #用户输入了’−h’，输出模块的文档
+      elif len(sys.argv) == 2 and sys.argv[1] == 'test':
+          test_all_functions()#用户输入了’test’，测试模块中的函数  
+      else:
+          import argparse #此模块获取用户在命令行输入的年份和月份
+          parser = argparse.ArgumentParser()
+          #在每个参数(年份或月份)的输入值前面都要用”−−参数名称”的格式指定对应的参数名称，参数的顺序无关紧要
+          parser.add_argument('--year', type=int, default=2022)
+          parser.add_argument('--month', type=int, default=1)
+          args = parser.parse_args()
+          year = args.year; month = args.month
+          print_monthly_calendar(year, month) 
   
   ```
 
-For example, given year 2022 and month 9, the module prints
-the monthly calendar of September 2022.
-
-> > > run month_calendar.py --year 2022 --month 9
-
-2022  9
----------------------------
-
-Sun Mon Tue Wed Thu Fri Sat
-                1   2   3
-4   5   6   7   8   9   10
-11  12  13  14  15  16  17
-18  19  20  21  22  23  24
-25  26  27  28  29  30
-"""
-
-import sys, math
-
-def is_leap(year): 
-    #若year是闰年返回True，否则返回False
-    return (year % 4 == 0 and year % 100 != 0) or year % 400 == 0
-
-def test____is_leap():
-    d = {1900:False, 2000:True, 2020:True, 2022:False}
-    #用已知正确答案的数据测试is_leap函数,若计算结果不正确则报错
-    for y in d.keys():  
-        if is_leap(y) != d[y]:  
-            print("test failed: is_leap(%d) != %s" % (y, d[y]))
-
-def get_0101_in_week(year):
-    return (year + math.floor((year - 1) / 4) -
-            math.floor((year - 1) / 100) +
-            math.floor((year - 1) / 400)) % 7
-
-def test____get_0101_in_week():
-    d = {2008:2, 2014:3, 2021:5, 2022:6}
-    for y in d.keys():
-        if d[y] != get_0101_in_week(y):
-            print("test failed: get_0101_in_week(%d) != %s"
-                  % (y, d[y]))
-
-month_days = {1:31, 2:28, 3:31, 4:30, 5:31, 6:30,
-              7:31, 8:31, 9:30, 10:31, 11:30, 12:31}
-def get_num_days_in_month(year, month):
-    n = month_days[month]
-    if month == 2 and is_leap(year):
-        return n + 1
-    return n
-
-def get_num_days_from_0101_to_m01(year, month):
-    n = 0
-    for i in range(1, month):
-        n += get_num_days_in_month(year, i)
-    return n
-
-def get_m01_in_week(year, month):
-    n1 = get_0101_in_week(year)
-    n2 = get_num_days_from_0101_to_m01(year, month)
-    n = (n1 + n2) % 7
-    return n
-
-def test____get_m01_in_week():
-    d = {(2022, 6):3, (2019, 10):2, (2016, 5):0, (2011, 7):5}
-    for y in d.keys():
-        if d[y] != get_m01_in_week(y[0], y[1]):
-            print("test failed: get_m01_in_week(%s) != %s"
-                  % (y, d[y]))
-
-def print_header(year, month):
-    print("%d  %d " % (year, month))
-    print("---------------------------")
-    print("Sun Mon Tue Wed Thu Fri Sat")
-
-def print_body(year, month):
-    n = get_m01_in_week(year, month)
-    print(n * 4 * ' ', end='')
-    for i in range(1, get_num_days_in_month(year, month) + 1):
-        print('%-04d' % i, end='')
-        if (i + n) % 7 == 0: print()
-
-def print_monthly_calendar(year, month):
-    print_header(year, month)
-    print_body(year, month)
-
-def test_all_functions():
-    #调用所有以“test____”为名称前缀的测试函数。
-    test____is_leap()
-    test____get_0101_in_week()
-    test____get_m01_in_week()
-
-if __name__ == '__main__':
-    #判断模块是否作为一个独立的程序运行
-    #sys.argv是一个记录了用户在命令行输入的所有参数的列表。列表的第一个元素是模块名称，列表的其余元素(若存在)是用户依次输入的所有参数  
-    if len(sys.argv) == 1:
-        print(__doc__)  #用户未输入参数，输出模块的文档
-    elif len(sys.argv) == 2 and sys.argv[1] == '-h':
-        print(__doc__)  #用户输入了’−h’，输出模块的文档
-    elif len(sys.argv) == 2 and sys.argv[1] == 'test':
-        test_all_functions()#用户输入了’test’，测试模块中的函数  
-    else:
-        import argparse #此模块获取用户在命令行输入的年份和月份
-        parser = argparse.ArgumentParser()
-        #在每个参数(年份或月份)的输入值前面都要用”−−参数名称”的格式指定对应的参数名称，参数的顺序无关紧要
-        parser.add_argument('--year', type=int, default=2022)
-        parser.add_argument('--month', type=int, default=1)
-        args = parser.parse_args()
-        year = args.year; month = args.month
-        print_monthly_calendar(year, month) 
-
-```
 ## 1.4 类与继承
+
 ### 1.4.1 类与实例
+
 + 面向对象编程(Object Oriented Programming)，简称OOP，是一种程序设计思想。OOP把对象作为程序的基本单元，一个对象包含了数据和操作数据的函数。面向对象的程序设计把计算机程序视为一组对象的集合，每个对象都可以接收其他对象发过来的消息，并处理这些消息，计算机程序的执行就是一系列消息在各个对象之间传递。在Python中，所有数据类型都可以视为对象，当然也可以自定义对象。自定义的对象数据类型就是面向对象中的类(Class)的概念
 + 类(Class)与实例(Instance)是面向对象编程中的重要概念，类是抽象的模板，类中的函数称为方法；实例是根据类创建出的具体的对象，每个对象拥有相同的方法，但各自的数据可能不同
 
 #### -类的创建与使用
+
 + 定义类使用``class``关键字，以创建``Student``类为例
+  
   ```python
   class Student():
-      def __init__(self,name,age):
-          self.name=name
-          self.age=age
-```
+        def __init__(self,name,age):
+            self.name=name
+            self.age=age
+  ```
 
 + ``class``后为类名，通常首字母大写
 
@@ -693,217 +700,216 @@ if __name__ == '__main__':
 + 一个类中所有方法的第一个形参始终为``slef``，是一个特殊的对象名，表示当前对象；在调用类中每一个方法时都会自动传入``self``的值，当通过类创建实例的时候都只需要按照顺序给后面的参数提供值
   
   + 对于一个对象调用其所属类的的方法的语法是``参数名.方法名()``，括号内可为空 (表示无实参) 或包含一些实参。如果实参的数量超过一个，它们之间用逗号分隔。这些实参必须和该方法中除了 self 以外的那些形参在数量上相同，并且在顺序上一一对应。
-    
-    #### -实例的创建与使用
+
+#### -实例的创建与使用
+
++ 定义类后即可根据该类创建实例，创建方法为``类名(参数1，参数2,...)``，如
   
-  + 定义类后即可根据该类创建实例，创建方法为``类名(参数1，参数2,...)``，如
+  ```python
+  class Student(): 
+        def __init__(self,name,age): 
+            self.name=name 
+            self.age=age
+  student_1=Student(‘Peter',23)
+  ```
+
++ Python使用提供的实参调用所创建类中的方法``__init__()``；方法``__init__()``创建一个特定的实例，并使用提供的值来设置属性；方法``__init__()``并未显式地包含``return``语句，但Python自动返回一个实例
++ 根据命名约定，通常可以认为首字母大写的名称指的是类，而小写的名称指的是根据类创建的实例
++ 要访问实例的属性，可使用句点表示法，即``实例名.属性名``，同样也可以用句点语句调用实例中的方法，即``实例名.方法名(参数)``
+
+#### -属性的处理方法
+
++ 为属性指定默认值可以直接在``__init__()``方法中直接进行赋值指定，之后调用时实参无需包含该属性
+
++ 修改属性的值有以下方法
+  
+  + 直接通过句点语言法访问并赋值修改，如
     
     ```python
     class Student(): 
-      def __init__(self,name,age): 
-          self.name=name 
-          self.age=age
-    
+              def __init__(self,name,age): 
+                  self.name=name 
+                  self.age=age 
+      
+          student_1=Student(‘Peter',23)
+      
+          student_1.age=20
     ```
   
-  student_1=Student(‘Peter',23)
-  
-  ```
-  + Python使用提供的实参调用所创建类中的方法``__init__()``；方法``__init__()``创建一个特定的实例，并使用提供的值来设置属性；方法``__init__()``并未显式地包含``return``语句，但Python自动返回一个实例
-  + 根据命名约定，通常可以认为首字母大写的名称指的是类，而小写的名称指的是根据类创建的实例
-  + 要访问实例的属性，可使用句点表示法，即``实例名.属性名``，同样也可以用句点语句调用实例中的方法，即``实例名.方法名(参数)``
-  #### -属性的处理方法
-  + 为属性指定默认值可以直接在``__init__()``方法中直接进行赋值指定，之后调用时实参无需包含该属性
-  + 修改属性的值有以下方法
-  + 直接通过句点语言法访问并赋值修改，如
-      ```python
-      class Student(): 
-          def __init__(self,name,age): 
-              self.name=name 
-              self.age=age 
-  
-      student_1=Student(‘Peter',23)
-  
-      student_1.age=20
-      ```
   + 通过自定义方法修改属性的值，如
-      ```python
-      class Student(): 
-          def __init__(self,name,age): 
-              self.name=name 
-              self.age=age
-  
-          #自定义方法
-          def update_age(self,age_1):
-              self.age=age_1
-  
-      student_1=Student(‘Peter',23)
-  
-      student_1.age=student.update_age(20)
-      ```
-  ### 1.4.2 继承和多态
-  + 编写类时，如果你要编写的类是另一个现成类的特殊版本，可使用继承。一个类继承另一个类时，它将自动获得另一个类的所有属性和方法；原有的类称为父类或基类，而新类称为子类或派生类。子类继承了其父类的所有属性和方法，同时还可以定义自己的属性和方法。
-  #### -子类创建与使用
-  + 以上文``Student()``类为例，当需要创建一个新的与``Studeng()``类有类似方法的``Un_student()``类时，可使用继承。需注意在编写子类时文件中必须包含父类，需使用``super()``函数从``__init__()``方法初始化父类的属性
-  ```python
-  class Student():
-      def __init__(self,name,age): 
-          self.name=name 
-          self.age=age
-  
-      def out(self):
-          print("%s is %d years old" %(self.name,self.age))
-  
-  class Un_student(Student):
-      def __init__(self,name,age):
-          super().__init__(self,name,age) #从父类中继承属性
-  ```
-  
-  + 当创建一个子类时，可以为该子类创建新的不同于父类的属性和方法，仍以``Student()``类为例，可在创建子类``Un_student()``时为其添加新的属性和方法，根据子类创建的实例都将包含新的属性和方法，而根据父类创建的实例则没有
     
     ```python
-    class Student():
-      def __init__(self,name,age): 
-          self.name=name 
-          self.age=age
-    
-      def out(self):
-          print("%s is %d years old" %(self.name,self.age))
-    
-    ```
-  
-  class Un_student(Student):
-  
-      def __init__(self,name,age,sex):
-          super().__init__(self,name,age) #从父类中继承属性
-          self.sex=sex #添加新的属性
+    class Student(): 
+              def __init__(self,name,age): 
+                  self.name=name 
+                  self.age=age
       
-      #添加新的方法
-      def describe_information(self):
-          print("%s is a %s, and is %d years old" %(self.name,self.sex,self.age))
-  
-  ```
-  + 当父类中的方法不符合子类的要求时可以进行重写，形成一个与父类中的某个方法在名称、形参列表和返回类型上都相同，但方法体不同的子类，称为覆盖 (overriding)
-  ```python
-  class Un_student(Student):
-      --snip--
-      def out(self):
-          print("He is %d years old" %self.age)
-  ```
-  
-  + 在创建子类的过程中随着添加属性和方法的增多文件会很长，可以将类的一部分作为一个独立的类提取出来，将大型类拆分成多个协同工作的小类，以``Un_student``类为例
-    
-    ```python
-    class Student():
-      --snip--
-    
-    ```
-  
-  class Base_Information():
-  
-      def __init__(self,name,age,sex,num):
-          self.name=name
-          self.age=age
-          self.sex=sex
-          self.num=num    
-  
-  class Un_student(Student):
-  
-      def __init__(self,name,age,sex):
-          super().__init__(self,name,age) 
-          self.base_info=Base_Information()
+              #自定义方法
+              def update_age(self,age_1):
+                  self.age=age_1
       
-      def describe_information(self):
-          print("%s is a %s, and is %d years old" %(self.name,self.sex,self.age))
+    student_1=Student(‘Peter',2)
+    student_1.age=student.update_age(20)
+    ```
+
+### 1.4.2 继承和多态
+
+编写类时，如果你要编写的类是另一个现成类的特殊版本，可使用继承。一个类继承另一个类时，它将自动获得另一个类的所有属性和方法；原有的类称为父类或基类，而新类称为子类或派生类。子类继承了其父类的所有属性和方法，同时还可以定义自己的属性和方法。
+
+#### -子类创建与使用
+
++ 以上文``Student()``类为例，当需要创建一个新的与``Studeng()``类有类似方法的``Un_student()``类时，可使用继承。需注意在编写子类时文件中必须包含父类，需使用``super()``函数从``__init__()``方法初始化父类的属性
   
-  ```
-  #### -多态
-  + 覆盖的存在产生了继承的优点——多态，多态的特点在于当将类作为参数传向新的方法或函数时可以实现父类中的任意方法
-  + 多态的基础是相同的数据类型，即从同一类父类发源；当在面向对象编程中定义一个``class``时即定义了一个数据类型，判断一个变量是否是某个类型可以用``isinstance()``函数进行判断；同时子类的数据类型可视作与父类相同，反之不成立
   ```python
   class Student():
-      --snip--
+        def __init__(self,name,age): 
+            self.name=name 
+            self.age=age
+    
+        def out(self):
+            print("%s is %d years old" %(self.name,self.age))
+    
+    class Un_student(Student):
+        def __init__(self,name,age):
+            super().__init__(self,name,age) #从父类中继承属性
+  ```
++ 当创建一个子类时，可以为该子类创建新的不同于父类的属性和方法，仍以``Student()``类为例，可在创建子类``Un_student()``时为其添加新的属性和方法，根据子类创建的实例都将包含新的属性和方法，而根据父类创建的实例则没有
   
-  class Un_Student(Student):
-      --snip--
+  ```python
+  class Student():
+        def __init__(self,name,age): 
+            self.name=name 
+            self.age=age
+      
+        def out(self):
+            print("%s is %d years old" %(self.name,self.age))
+      
+  class Un_student(Student):
+    
+        def __init__(self,name,age,sex):
+            super().__init__(self,name,age) #从父类中继承属性
+            self.sex=sex #添加新的属性
+        
+        #添加新的方法
+        def describe_information(self):
+            print("%s is a %s, and is %d years old" %(self.name,self.sex,self.age))
+  ```
++ 当父类中的方法不符合子类的要求时可以进行重写，形成一个与父类中的某个方法在名称、形参列表和返回类型上都相同，但方法体不同的子类，称为覆盖 (overriding)
   
-  a=Student()
-  b=Un_Student()
+  ```python
+  class Un_student(Student):
+        --snip--
+        def out(self):
+            print("He is %d years old" %self.age)
+  ```
++ 在创建子类的过程中随着添加属性和方法的增多文件会很长，可以将类的一部分作为一个独立的类提取出来，将大型类拆分成多个协同工作的小类，以``Un_student``类为例
   
-  print(isinstance(a,Student)) #True
-  print(isinstance(a,Un_Student)) #True
+  ```python
+  class Student:
+  
+      class Base_Information:
+  
+          def __init__(self, name, age, sex, num):
+              self.name = name
+              self.age = age
+              self.sex = sex
+              self.num = num
+  
+      class Un_student(Student):
+  
+          def __init__(self, name, age, sex):
+              super().__init__(self, name, age)
+              self.base_info = Base_Information()
+  
+          def describe_information(self):
+              print("%s is a %s, and is %d years old" % (self.name, self.sex, self.age))
+  
+  ```
+
+#### -多态
+
++ 覆盖的存在产生了继承的优点——多态，多态的特点在于当将类作为参数传向新的方法或函数时可以实现父类中的任意方法
+
++ 多态的基础是相同的数据类型，即从同一类父类发源；当在面向对象编程中定义一个``class``时即定义了一个数据类型，判断一个变量是否是某个类型可以用``isinstance()``函数进行判断；同时子类的数据类型可视作与父类相同，反之不成立
+  
+  ```python
+  lass Student():
+        --snip--
+    
+    class Un_Student(Student):
+        --snip--
+    
+    a=Student()
+    b=Un_Student()
+    
+    print(isinstance(a,Student)) #True
+    print(isinstance(a,Un_Student)) #True
   ```
 
 + 以下文代码为例，多态的意义在于对于一个可以以父类``Student()``实例为形参调用的函数``put_age()``，子类也可以作为形参调用，不用深究子类是派生出的何种类型，即只要来自于同一个父类``Student``，调用方只管调用，不管细节，而当我们新增一种子类时，只要确保原方法编写正确，不用管原来的代码是如何调用的，即“开闭原则”
   
   ```python
   class Student():
-      --snip--
-  
-  class Un_Student(Student):
-      --snip--
-  
-  def put_age(student):
-      print(student.age())
-  
-  put_age(Student)
-  put_age(Un_Student) #输出对应的数据
-  
-  #创建新的子类
-  class PhD(Student):
-      --snip--
-  
-  put_age(PhD) #同样可以正常输出对应的数据
+        --snip--
+    
+    class Un_Student(Student):
+        --snip--
+    
+    def put_age(student):
+        print(student.age())
+    
+    put_age(Student)
+    put_age(Un_Student) #输出对应的数
+    #创建新的子类
+    class PhD(Student):
+        --snip--
+    
+    put_age(PhD) #同样可以正常输出对应的数据
   ```
-  
-  + 开闭原则即对扩展开放(允许新增子类)；对修改封闭(不需要修改依赖父类的函数)
-  
-  + 继承还可以一级一级地继承下来，任何类最终都可以追溯到根类object
-      ![继承树](https://img2.imgtp.com/2024/04/16/3XQ1fNy8.png)
-    
-    ### 1.4.3 类的导入
-    
-    Python允许你将类存储在模块中，然后在主程序中导入所需的模块，导入类的方法包括多种，与函数模块化设计相关联
+
++ 开闭原则即对扩展开放(允许新增子类)；对修改封闭(不需要修改依赖父类的函数)
+
++ 继承还可以一级一级地继承下来，任何类最终都可以追溯到根类object
+    <img title="" src="https://img2.imgtp.com/2024/04/16/3XQ1fNy8.png" alt="继承树" data-align="inline"> 
+
+### 1.4.3 类的导入
+
+Python允许你将类存储在模块中，然后在主程序中导入所需的模块，导入类的方法包括多种，与函数模块化设计相关联
 
 + 导入单个类：在编写大规模程序时可以在一个模块中包含单个类，调用类中的方法时仍使用句点语法，如在只有一个模块的``student.py``文件中导入``Student``类并创建实例
   
   ```python
   from student import Student
-  
-  S_1=Student("Peter",23) #创建实例并传入参数
-  
-  S_1.out()
+    
+    S_1=Student("Peter",23) #创建实例并传入参数
+    
+    S_1.out()
   ```
-
 + 同一模块存储多个类：在同一模块中可以存储任意数量的类，导入时仍使用``from -- import --``语句，调用其中的方法时仍使用句点语法，如包含了``Un_Student``和``PhD``类的``student1.py``文件
   
   ```python
   from student1 import Un_Student
-  
-  --snip--
+    
+    --snip--
   ```
-
 + 从同一模块导入指定类：可根据实际需求从存储了多个类的一个模块中导入多个类，导入方式同函数，如从存储了``Student``、``Un_Student``、``PhD``等多个类的``student.py``文件中导入``Un_Student``、``PhD``
   
   ```python
   from student import Un_Student,PhD
-  --snip--
+    --snip--
   ```
-
 + 导入整个模块：导入整个模块会使代码具有更大的易读性，导入方式简洁，引用时同样使用句点法``module_name.class_name.func_name()``
   
   ```python
   import student
-  
-  S_1=student.Student("Peter",23) #创建实例并传入参数
-  
-  S_1.out()
+    
+    S_1=student.Student("Peter",23) #创建实例并传入参数
+    
+    S_1.out()
   ```
-
 + 导入模块中所有的类：导入模块中所有的类与函数的导入方法相同，即``from moudle_name import *``
-
 + 在一个模块中导入另一个模块：有时候，需要将类分散到多个模块中，以免模块太大，或在同一个模块中存储不相关的类。将类存储在多个模块中时，可能会存在一个模块中的类依赖于另一个模块中的类的情况。在这种情况下，可在前一个模块中导入必要的类。如若将``Student``存储在``s_1.py``模块中，将 ``Un_Student``、``PhD``存储在``s_2.py``模块中，由于``Un_Student``、``PhD``依赖于父类``Student``，需要在
-  ``s_2.py``模块中导入``Student``，导入方式与正常情况相同
+    ``s_2.py``模块中导入``Student``，导入方式与正常情况相同
 
 ## 1.5 文件处理
 
@@ -1041,20 +1047,6 @@ if __name__ == '__main__':
     
     print(numbers)
     ```
-    
-    ## 1.6 异常
-    
-    ### 1.6.1 错误的分类
-    
-    程序发生的错误可分为三大类：语法错误、逻辑错误和运行时错误
-
-+ 语法错误是指程序违反了程序设计语言的语法规则，例如语句``if 3>2print(’3>2’)``因冒号缺失导致语法解析器报错``SyntaxError:invalid syntax``
-
-+ 逻辑错误是指程序可以正常运行，但结果不正确。
-
-+ 运行时错误也称为异常 (exception), 是指程序在运行过程中发生了意外情形而无法继续运行。每当发生错误时，Python都会创建一个异常对象。如果程序中有处理该异常的代码，程序将继续运行；如果未对异常进行处理，程序将停止并显示一个``traceback``，其中包含有关异常的报告
-  
-  ### 1.6.2 异常处理
   
   #### - 常见异常
 
