@@ -154,6 +154,7 @@
   | str.islower() | 当所有字母为小写时返回TRUE，否则为FALSE |
   
   其余非常用方法见下图
+  
   ![输入图片说明](https://img2.imgtp.com/2024/03/12/4D6WvGYk.png)
 
 - 字符串的format()方法格式化处理
