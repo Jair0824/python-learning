@@ -943,7 +943,7 @@ Python允许你将类存储在模块中，然后在主程序中导入所需的�
   with open(file_path) as file_object:
   ```
   
-  #### -文件的整体读取与逐行读取
+#### -文件的整体读取与逐行读取
 
 + 文件的读取首先需要打开文件，常用的打开文件方式有两种
   
@@ -953,7 +953,7 @@ Python允许你将类存储在模块中，然后在主程序中导入所需的�
     f=open(file_name,mode)
     ```
     
-     该语句打开文件名为``file_name``的文件并创建对象``f``，其中``mode``包括``'r'``(读)、``'w'``(写)、``'a'``(追加)、``'r+'``(读写)，代表打开方式，若含``b``则表示以二进制方式打开，文件处理结束之后需使用``f.close()``语句关闭文件
+     该语句打开文件名为``file_name``的文件并创建对象``f``，其中``mode``包括``'r'``(读)、``'w'``(写)、``'a'``(追加)、``'r+'``(读写)，代表打开方式，若含``b``则表示以二进制方式打开，文件处理结束之后需使用``f.close()``      语句关闭文件
   
   + 使用``with``关键字打开文件
     
@@ -991,9 +991,9 @@ Python允许你将类存储在模块中，然后在主程序中导入所需的�
       --snip--
   ```
   
-  ### 1.5.2 文件写入
+### 1.5.2 文件写入
   
-  #### -写入空文件
+#### -写入空文件
 
 + 通过在调用``open()``函数并向其提供提供第二个参数``'w'``可进行文件的写入，若打开的文件不存在则会自动创建；若打开的文件中已有内容则会清空原有的内容
 
@@ -1008,7 +1008,7 @@ Python允许你将类存储在模块中，然后在主程序中导入所需的�
       file_project.write("1958\n")
   ```
   
-  #### -追加文件内容
+#### -追加文件内容
 
 + 如果要向文件添加内容而不覆盖原有的内容，可以通过传入第二个参数``'a'``将内容添加到文件的末尾
   
@@ -1019,7 +1019,7 @@ Python允许你将类存储在模块中，然后在主程序中导入所需的�
       file_project.write("1958\n")
   ```
   
-  ### 1.5.3 存储数据
+### 1.5.3 存储数据
 
 + 很多程序要求将用户输入的信息或程序运行中产生的信息进行存储，模块``json``能够将简单的Python数据结构转储到文件中，并在程序再次运行时加载该文件中的数据，也使用``json``在Python程序之间分享数据。同时JSON(JavaScript Object Notation)是一种常用的应用程序间数据交换格式，这种数据格式具有通用性，能够将以JSON格式存储的数据与使用其他编程语言的人分享
 
@@ -1048,7 +1048,7 @@ Python允许你将类存储在模块中，然后在主程序中导入所需的�
     print(numbers)
     ```
   
-  #### - 常见异常
+#### - 常见异常
 
 + ``ZeroDivisionError``异常，即除0异常
   
@@ -1074,8 +1074,8 @@ Python允许你将类存储在模块中，然后在主程序中导入所需的�
              with open(filename) as f_obj:
        FileNotFoundError: [Errno 2] No such file or directory: 'file_name.txt'
   ```
-  
-  #### - ``try-except``代码块处理异常
+
+#### - ``try-except``代码块处理异常
 
 + 当程序可能发生了错误时，可编写一个``try-except``代码块来处理可能引发的异常。Python尝试运行程序代码，这些代码中包含如果代码引发了指定的异常该怎么办。
 
@@ -1104,9 +1104,9 @@ Python允许你将类存储在模块中，然后在主程序中导入所需的�
   >>>5
   ```
 
-## 1.7 测试
+## 1.6 测试
 
-### 1.7.1  测试函数
+### 1.6.1  测试函数
 
 + Python的``unittest``模块提供了代码测试工具，测试有单元测试、测试用例、全覆盖式测试等形式；单元测试用于核实函数的某个方面没有问题；测试用例是一组单元测试，这些单元测试一起核实函数在各种情形下的行为都符合要求。全覆盖式测试用例包含一整套单元测试，涵盖了各种可能的函数使用方式，以对``calc.py``文件中的``add()``函数进行测试为例
   
@@ -1206,7 +1206,7 @@ Python允许你将类存储在模块中，然后在主程序中导入所需的�
   OK
   ```
 
-### 1.7.2  测试类
+### 1.6.2  测试类
 
 #### -断言方法
 
@@ -1336,13 +1336,3 @@ class Test_information(unittest.TestCase):
 
 unittest.main()
 ```
-
-<!--stackedit_data:
-eyJoaXN0b3J5IjpbMTYwMjk5MTk0MiwtMTI2MDYxNzM2NiwzNT
-I2MjU2NzYsMjYzMzA3NTY1LC0xMTI0MjQyMDg4LC0xMjc5ODA4
-NDk5LDEwODMwMzEzMjcsMTUzNDYyMDc2NCwtODAzNjQyODMyLC
-0xNTIxNjUzMzksLTU0NzQ3NjY5MiwtMTg2ODAwMjI5NCwtMjgx
-OTI1Mzg2LDQzOTYwMDEwMSwtMTkzMjE0NDk5OCwtMTQxNDU2MD
-Q3NSw5MjQ3NzQ5NDMsMTQ2MDY2MTU2OCw1NTIzODcxODYsMTIy
-MzE2NTM0Ml19
--->
