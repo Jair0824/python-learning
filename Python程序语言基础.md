@@ -524,8 +524,6 @@ $$
 \left. n!=\left\{\begin{array}{ll}1&\text{if} \quad n=1\\n*(n-1)!&\text{if} \quad n>1\end{array}\right.\right.
 $$
 
-$$
-
 ```python
 def func(n):
     if n==1:
