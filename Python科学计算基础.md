@@ -302,7 +302,37 @@
   
    [[50 51 52 53 54 55]
     [30 31 32 33 34 35]]]
-  """
+  """type)
+  
+  
   ```
+
+#### - 结构数组
+
+类似于C语言可以通过``struct``关键字定义结构类型，``NumPy``也提供了结构数组，其定义方式如下
+
+```python
+persontype = np.dtype(
+    {'names': ['name', 'age', 'weight'], 'formats': ['S30', 'i', 'f']}, align=True
+)
+
+a = np.array([('Petre', 32, 60), ("Lee", 20, 61)], dtype=persontype)
+
+print(a.dtype)
+print(a)
+
+"""
+{'names': ['name', 'age', 'weight'], 'formats': ['S30', '<i4', '<f4'], 'offsets': [0, 32, 36], 'itemsize': 40, 'aligned': True}
+[(b'Petre', 32, 60.) (b'Lee', 20, 61.)]
+"""
+```
+
+首先创建一个``dtype``对象``persontype``，它的参数是一个描述结构类型的各个字段的字典。字典有两个键：``names``和``formats``， 每个键对应的值都是一个列表。``name``定义结构中每个字段的名称，``formats``定义每个字段的类型：
+
++ ``'S30'``:长度为30个字节的字符串类型，由于结构中的每个元素的大小必须同定，因此需要指定字符串的长度。
+
++ ``'i'``:32位的整数类型，相当于``np.int32``
+
++ ``'f'``:32位的单精度浮点数类型，相当于``np.float32``
 
 
