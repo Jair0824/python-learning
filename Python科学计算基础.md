@@ -313,7 +313,7 @@
 
 ```python
 persontype = np.dtype(
-    {'names': ['name', 'age', 'weight'], 'formats': ['S30', 'i', 'f']}, align=True
+  {'names': ['name', 'age', 'weight'], 'formats': ['S30', 'i', 'f']}, align=True
 )
 
 a = np.array([('Petre', 32, 60), ("Lee", 20, 61)], dtype=persontype)
@@ -334,5 +334,3 @@ print(a)
 + ``'i'``:32位的整数类型，相当于``np.int32``
 
 + ``'f'``:32位的单精度浮点数类型，相当于``np.float32``
-
-
