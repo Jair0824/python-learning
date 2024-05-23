@@ -443,3 +443,190 @@ print(a.tostring())
 b'Petre\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00 \x00\x00\x00\x00\x00pBLee\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x14\x00\x00\x00\x00\x00tB'
 """
 ```
+
+### 1.1.2 ``ufunc``函数
+
++ ``ufunc``是``universal function``的缩写，它是一种能对数组的每个元素进行运算的函数。``NumPy``内置的许多``ufunc``函数都是用C语言实现的，因此它们的计算速度要快于内置的``math``库函数
+
++ ``ufunc``函数对数组计算得到的结果会新创建一个数组来保存；也可以通过``out``参数指定保存计算结果的数组。因此如果希望直接在原数组中保存结果，可以将它传递给out参数
+
+#### - 四则运算
+
+数组运算支持常规运算符(``+``、``-``、``*``、``/``等)，但计算速度较慢，``NumPy``为数组定义了各种数学运算操作符，如下表:
+
+![31a01c93-d6dd-45fc-a828-26587a3fbd9d](file:///C:/Users/jiani/Pictures/Typedown/31a01c93-d6dd-45fc-a828-26587a3fbd9d.png)
+
+```python
+a = np.arange(1, 18, 4)
+b = np.arange(1, 10, 2)
+print(a, b)
+print(np.add(a, b))
+print(a, b)
+np.add(a, b, out=a)
+print(a, b)
+
+"""
+[ 1  5  9 13 17] [1 3 5 7 9]
+[ 2  8 14 20 26]
+[ 1  5  9 13 17] [1 3 5 7 9]
+[ 2  8 14 20 26] [1 3 5 7 9]
+"""
+```
+
+#### - 比较运算和布尔运算
+
+使用``=``、``>``等比较运算符对两个数组进行比较，将返回一个布尔数组，它的每个元素值都是两个数组对应元素的比较结果，同样的，每个运算符也对应一个函数
+
+![6eb37a6c-b6b2-46f8-886a-26122645fa2c](file:///C:/Users/jiani/Pictures/Typedown/6eb37a6c-b6b2-46f8-886a-26122645fa2c.png)
+
+```python
+a = np.arange(1, 18, 4)
+b = np.arange(1, 10, 2)
+print(a == b)
+
+"""
+[ True False False False False]
+[ True False False False False]
+"""
+```
+
+由于Python中的布尔运算使用的``and``、``or``和``not``等关键字无法被重载，因此数组的布尔运算只能通过相应的``ufunc``函数进行，这些函数名都以``logical_``幵头，对两个布尔数组使用``and``、``or``和``not``等进行布尔运算，将抛出``ValueError``异常
+
+```python
+a = np.arange(1, 18, 4)
+b = np.arange(1, 10, 2)
+print(a == b)
+print(a > b)
+print(np.logical_and(a == b, a > b))
+
+
+"""
+[ True False False False False]
+[False  True  True  True  True]
+[False False False False False]
+"""
+```
+
+在``NumPy``中定义了``any()``和``all()``函数，只要数组中有一个元素值为``True``,`` any()``就返回``True``; 而只有当数组的全部元素都为``True``时，``all()``才返回``True``
+
+```python
+a = np.arange(1, 18, 4)
+b = np.arange(1, 10, 2)
+print(np.any(a == b))
+print(np.any(a > b))
+print(np.any(a == b) and np.any(a > b))
+
+"""
+True
+True
+True
+"""
+```
+
+以``bitwise_``开头的函数是[位运算](https://www.runoob.com/w3cnote/bit-operation.html)函数，包括``bitwise_and``、``bitwise_not``、``bitwise_or`` 和``bitwise_xor``等。也可以使用``&`` 、``~``、``丨``和``^``等操作符进行计算
+
+```python
+a = np.arange(1, 18, 4)
+b = np.arange(1, 10, 2)
+print(~a)
+print((a == b) | (a > b))
+
+"""
+[ -2  -6 -10 -14 -18]
+[ True  True  True  True  True]
+"""
+```
+
+#### - 自定义``ufunc``函数
+
+通过``NumPy``提供的标准``ufunc``函数可以组合出复杂的表达式，在C语言级別对数组的每个元素进行计算。但有吋这种表达式不易编写，而对每个元素进行计算的程序却很容易用Python实现，这时可以用``frompyfunc()``将计算单个元素的函数转换成``ufunc``函数，这样就可以方便地将所产生的``ufunc``函数对数组进行计算。``frompyfunc()``的调用格式为``frompyfunc(func, nin, nout)``，其中``func``是计算单个元素的函数，``nin``是``func``的输入参数的个数，``nout``是``func``的返回值的个数。这种函数所返回的数组的元素类型是``object``, 因此还需要调用数组的``astype()``方法将其转换为所需要的类型。同时，使用``vectorize()``也可以实现和``frompyfunc()``类似的功能，但它可以通过``otypes``参数指定返回的数组的元素类型。``otypes``参数可以是一个表示元素类型的字符串，也可以是一个类型列表，
+使用列表可以描述多个返回数组的元素类型
+
+#### - 广播
+
+当使用``ufunc``函数对两个数组进行计算时,``ufunc``函数会对这两个数组的对应元素进行计算,因此它要求这两个数组的形状相同。如果形状不同，会进行如下广播(``broadcasting``)处理
+
++ 让所有输入数组都向其中维数最多的数组看齐，``shape``属性中不足的部分都通过在前面加1补齐
+
++  输出数组的``shape``属性是输入数组的``shape``属性的各个轴上的最大值
+
++ 如果输入数组的某个轴的长度为1或与输出数组的对应轴的长度相同，这个数组能够用来计算，否则出错
+
++  当输入数组的某个轴的长度为1吋，沿着此轴运算时都用此轴上的第一组值
+
+以创建一个形状为(6,1)的二维数组和一个形状为(5,)的一维数组并计算二者之和为例：
+
++ 计算a与b的和会得到一个加法表，它相当于计算两个数组中所有元素对的和，得到一个形状为(6,5)的数组
+  
+  ```python
+  a = np.arange(0, 60, 10).reshape(6, 1)
+  b = np.arange(0, 5)
+  c = a + b
+  print(c)
+  
+  """
+  [[ 0  1  2  3  4]
+   [10 11 12 13 14]
+   [20 21 22 23 24]
+   [30 31 32 33 34]
+   [40 41 42 43 44]
+   [50 51 52 53 54]]
+  """
+  ```
+
++ 由于a和b的维数不同，根据规则(1)，需要让b的``shape``属性向a对齐，于是在b的``shape``属性前加1 , 补齐为(1,5)，即相当于``b.shape=1,5``
+
++ 根据规则(2),输出数组的各个轴的长度为输入数组各个轴的长度的最大值，可知输出数组的``shape``属性为(6,5)
+
++ 由于b的第0轴的长度为1，而a的第0轴的长度为6，为了让它们在第0轴上能够相加，需要将b的第0轴的长度扩展为6，即相当于
+  
+  ```python
+  b.shape = 1, 5
+  b = b.repeat(6, axis=0)
+  print(b)
+  
+  """
+  [[0 1 2 3 4]
+   [0 1 2 3 4]
+   [0 1 2 3 4]
+   [0 1 2 3 4]
+   [0 1 2 3 4]
+   [0 1 2 3 4]]
+  """
+  ```
+
++ 同样的，由于a的第1轴的长度为1，而b的第1轴的长度为5，为了让它们在第1轴上能够相加，需要将a的第1轴的长度扩展为5，即相当于``a=a.repeat(5, axis=1)``
+
+由于这种广播计算很常用，因此``NumPy``提供了``ogrid``对象，用于创建广播运算用的数组``x,y = np.ogrid[:5, :5]``，还提供了``mgrid``对象，返回进行广播之后的数组``x,y = np.mgrid[:5, :5]``，``ogrid``它像多维数组一样，用切片元组作为下标
+
+```python
+a = np.arange(4)
+print(a)
+b = a[None, :]
+c = a[:, None]
+print(b)
+print(c)
+
+"""
+[0 1 2 3]
+[[0 1 2 3]]
+[[0]
+ [1]
+ [2]
+ [3]]
+"""
+```
+
+#### - ``ufunc``方法
+
+``ufunc``函数对象本身还有一些方法函数，这些方法只对两个输入、一个输出的``ufunc``函数有效，其他的``ufunc``对象调用这些方法时会抛出``ValueError``异常
+
++ ``reduce()``
+
++ ``accumulate()``
+
++ ``reduceat()``
+
++ ``squeeze()``
+
++ 
