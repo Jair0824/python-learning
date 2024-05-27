@@ -1126,7 +1126,7 @@ Python允许你将类存储在模块中，然后在主程序中导入所需的�
 
 ### 1.6.2 自定义异常类
 
-用户在程序中可以使用内置异常类，也可以根据需要自定义异常类，自定义的异常类以``Exception``作为父类。以自定义异常类``InputRangeError``为例,``gcd``函数判断用户输入的两个整数中是否存在负数，若是则抛出``InputRangeError``异常，因为这种情形下``while``循环不会终止。异常导致``gcd``函数返回，该异常对象被 ``except`` 语句块捕获，然后输出出错信息。
+用户在程序中可以使用内置异常类，也可以根据需要自定义异常类，自定义的异常类以``Exception``作为父类。以自定义异常类``InputRangeError``为例,``gcd``函数判断用户输入的两个整数中是否存在负数，若是则抛出``InputRangeError``异常，因为这种情形下``while``循环不会终止。异常导致``gcd``函数返回，该异常对象被 ``except`` 语句块捕获，然后输出出错信息。``sys.argv``是一个列表，存储了用户在命令行输入的所有字符串。索引值为0的字符串是程序的名称，其余字符串是用户输入的参数。如果输入的参数个数少于两个，则读取``sys.argv[2]``导致``IndexError``，如果某个参数不是整数，则``int``函数报错``ValueError``
 
 ```python
 class InputRangeError(Exception):
@@ -1407,3 +1407,5 @@ class Test_information(unittest.TestCase):
 
 unittest.main()
 ```
+
+
