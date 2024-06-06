@@ -2,8 +2,7 @@
 
 ## 1.1 numpy库入门
 
-``NumPy`` 扩展库  定义了由同类型的元素组成的多维数组``ndarray``及其常用运算，``ndarray`` 是科学计算中最常用的数据类型。NumPy 数组相对列表的优势是运算速度更快和占用内存更少。``ndarray``是一个类，它的别名是``array``。它的主要属性包括``ndim``(维数)、``shape``(形状，即由每个维度的长度构成的元组) 、``size``(元素数量) 和``dtype``(元素类型：可以是 Python 的内置类型，也可以是 NumPy
-定义的类型，例如 numpy.int32、numpy.int16 和 numpy.float64 等)。
+``NumPy`` 扩展库  定义了由同类型的元素组成的多维数组``ndarray``及其常用运算，``ndarray`` 是科学计算中最常用的数据类型。NumPy 数组相对列表的优势是运算速度更快和占用内存更少。``ndarray``是一个类，它的别名是``array``。它的主要属性包括``ndim``(维数)、``shape``(形状，即由每个维度的长度构成的元组) 、``size``(元素数量) 和``dtype``(元素类型：可以是 Python 的内置类型，也可以是 NumPy定义的类型，例如``numpy.int32``、``numpy.int16`` 和 ``numpy.float64`` 等)。
 
 ### 1.1.1 ``ndarry``对象
 
@@ -434,6 +433,28 @@ b'Petre'
 """
 ```
 
+当结构体数组作为实参传入函数时对其处理时会对数组进行改变
+
+```python
+#test1.py
+def func(data):
+    a = data['age']
+    a[0] = 22
+
+--snip--
+print(a['age'])
+
+test1.func(a)
+
+print(a['age'])
+
+
+"""
+[32 20]
+[22 20]
+"""
+```
+
 通过``tostring()``或``tofile()``方法可以将数组以二进制的方式转换成字符串或写入文件，如``a.tofile(test.bin)``
 
 ```python
@@ -661,8 +682,8 @@ print(c)
   [0 1 1 2 3 3 6] 
   """
   ```
-
- 其结果中除最后一个元素之外，都按照如下计算得出
+  
+  其结果中除最后一个元素之外，都按照如下计算得出
 
 ```python
 if indices[i] < indices[i+1]:
@@ -679,5 +700,3 @@ if indices[-1] == 0:
 else:
     result[i] = a[indices[i]]
 ```
-
-
